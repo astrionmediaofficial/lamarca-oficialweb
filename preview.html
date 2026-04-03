@@ -351,6 +351,114 @@
     .footer-location { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
     @media (max-width: 1024px) { .footer-top { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 768px)  { .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; } }
+
+    /* ─── CHATBOT ─────────────────────────────────────────────── */
+    #cb { position: fixed; bottom: 24px; right: 24px; z-index: 10000; font-family: var(--font); }
+
+    #cb-toggle {
+      width: 56px; height: 56px;
+      background: var(--cyan); color: #000;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 4px 4px 0 rgba(0,212,255,0.25);
+      transition: transform 0.15s;
+    }
+    #cb-toggle:hover { transform: translateY(-2px); }
+    #cb-toggle svg { width: 24px; height: 24px; }
+
+    #cb-win {
+      display: none; flex-direction: column;
+      position: absolute; bottom: 68px; right: 0;
+      width: 340px; height: 500px;
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+    }
+    #cb-win.open { display: flex; }
+
+    #cb-head {
+      padding: 0.9rem 1.2rem;
+      background: #161616;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    #cb-head-title {
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--white);
+    }
+    #cb-head-title span { color: var(--cyan); }
+    #cb-close {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: 1rem; line-height: 1;
+      padding: 2px 6px; transition: color 0.2s;
+    }
+    #cb-close:hover { color: var(--white); }
+
+    #cb-msgs {
+      flex: 1; overflow-y: auto; padding: 1rem;
+      display: flex; flex-direction: column; gap: 0.6rem;
+      scrollbar-width: thin; scrollbar-color: #333 transparent;
+    }
+    .cb-msg {
+      max-width: 82%; padding: 0.6rem 0.9rem;
+      font-size: 0.83rem; line-height: 1.5;
+      word-break: break-word;
+    }
+    .cb-msg-bot {
+      background: #1c1c1c; color: var(--white);
+      align-self: flex-start;
+      border-left: 2px solid var(--cyan);
+    }
+    .cb-msg-user {
+      background: var(--cyan); color: #000;
+      align-self: flex-end; font-weight: 500;
+    }
+    .cb-nav-btn {
+      display: inline-block; margin-top: 0.5rem;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--cyan); border-bottom: 1px solid var(--cyan);
+      cursor: pointer; background: none; border-top: none;
+      border-left: none; border-right: none; padding: 0;
+    }
+    .cb-loading { display: flex; gap: 5px; align-items: center; padding: 0.8rem 1rem; }
+    .cb-loading span {
+      width: 6px; height: 6px; background: var(--cyan);
+      border-radius: 50%; animation: cbdot 1.2s infinite;
+    }
+    .cb-loading span:nth-child(2) { animation-delay: 0.2s; }
+    .cb-loading span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes cbdot { 0%,60%,100%{opacity:0.2;transform:scale(0.8)} 30%{opacity:1;transform:scale(1)} }
+
+    #cb-bar {
+      padding: 0.75rem;
+      background: #161616;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex; gap: 0.5rem; align-items: center;
+    }
+    #cb-input {
+      flex: 1; background: #0e0e0e;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white); font-family: var(--font);
+      font-size: 0.83rem; padding: 0.55rem 0.8rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    #cb-input:focus { border-color: var(--cyan); }
+    #cb-input::placeholder { color: var(--muted); }
+    #cb-mic, #cb-send {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: #222; border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+    #cb-mic:hover, #cb-send:hover { background: #2a2a2a; color: var(--white); }
+    #cb-mic.recording { background: #ff1aaa; color: #fff; border-color: #ff1aaa; animation: pulse 1s infinite; }
+    #cb-send { background: var(--cyan); color: #000; border-color: var(--cyan); }
+    #cb-send:hover { background: #00eeff; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+    #cb-mic svg, #cb-send svg { width: 16px; height: 16px; pointer-events: none; }
   </style>
 </head>
 <body>
@@ -624,6 +732,36 @@
     </div>
   </footer>
 
+  <!-- CHATBOT -->
+  <div id="cb">
+    <button id="cb-toggle" aria-label="Open chat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+    </button>
+    <div id="cb-win" aria-hidden="true" role="dialog" aria-label="Chat with La Marca">
+      <div id="cb-head">
+        <span id="cb-head-title"><span>La Marca</span> · Support</span>
+        <button id="cb-close" aria-label="Close chat">✕</button>
+      </div>
+      <div id="cb-msgs" role="log" aria-live="polite"></div>
+      <div id="cb-bar">
+        <input id="cb-input" type="text" placeholder="Ask us anything..." autocomplete="off" />
+        <button id="cb-mic" aria-label="Record voice message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="2" width="6" height="11" rx="3"/>
+            <path d="M19 10a7 7 0 0 1-14 0M12 19v3M8 22h8"/>
+          </svg>
+        </button>
+        <button id="cb-send" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // ── Navbar scroll ──────────────────────────────────────────
     const nav = document.getElementById('navbar');
@@ -807,6 +945,143 @@
       };
       shirtImg.src = svgURL;
     });
+  </script>
+
+  <script>
+    /* ── Chatbot ─────────────────────────────────────────────── */
+    (function() {
+      const WEBHOOK   = 'https://omar-test-n8n.lluiko.easypanel.host/webhook/6bd7f11c-b2ac-4d05-84b3-1511bc277484';
+      const sessionId = Math.random().toString(36).slice(2);
+
+      const toggle = document.getElementById('cb-toggle');
+      const win    = document.getElementById('cb-win');
+      const close  = document.getElementById('cb-close');
+      const msgs   = document.getElementById('cb-msgs');
+      const input  = document.getElementById('cb-input');
+      const send   = document.getElementById('cb-send');
+      const mic    = document.getElementById('cb-mic');
+
+      const navMap = [
+        { keys: ['t-shirt','tshirt','camiseta','shirt','tee'],             id: '#productos',     label: 'View T-Shirts' },
+        { keys: ['hoodie','sudadera','sweatshirt'],                         id: '#productos',     label: 'View Hoodies' },
+        { keys: ['hat','gorra','cap','embroidery','bordado','keychain','llavero'], id: '#productos', label: 'View Products' },
+        { keys: ['product','producto','catalog','catálogo','merch'],        id: '#productos',     label: 'View Products' },
+        { keys: ['how','process','proceso','steps','pasos','works'],        id: '#como-funciona', label: 'See How It Works' },
+        { keys: ['contact','contacto','order','pedido','quote','whatsapp'], id: '#contacto',      label: 'Contact Us' },
+      ];
+
+      function detectNav(text) {
+        const lower = text.toLowerCase();
+        return navMap.find(n => n.keys.some(k => lower.includes(k))) || null;
+      }
+
+      toggle.addEventListener('click', () => {
+        const open = win.classList.toggle('open');
+        win.setAttribute('aria-hidden', String(!open));
+        if (open && msgs.children.length === 0) {
+          addBot("Hi! 👋 I'm La Marca's assistant. Ask me about our products, pricing, or how to place an order.");
+        }
+      });
+      close.addEventListener('click', () => {
+        win.classList.remove('open');
+        win.setAttribute('aria-hidden', 'true');
+      });
+
+      function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+      function addMsg(role, html) {
+        const d = document.createElement('div');
+        d.className = 'cb-msg cb-msg-' + role;
+        d.innerHTML = html;
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+        return d;
+      }
+
+      function addBot(text, navHint) {
+        let html = escHtml(text);
+        if (navHint) html += `<br><button class="cb-nav-btn" data-target="${navHint.id}">→ ${navHint.label}</button>`;
+        const d = addMsg('bot', html);
+        d.querySelectorAll('.cb-nav-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const el = document.querySelector(btn.dataset.target);
+            if (el) { el.scrollIntoView({ behavior: 'smooth' }); win.classList.remove('open'); }
+          });
+        });
+      }
+
+      function addLoading() {
+        const d = document.createElement('div');
+        d.className = 'cb-msg cb-msg-bot cb-loading';
+        d.innerHTML = '<span></span><span></span><span></span>';
+        msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+        return d;
+      }
+
+      async function callN8n(payload) {
+        const loader = addLoading();
+        try {
+          const res = await fetch(WEBHOOK, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...payload, sessionId })
+          });
+          const raw = await res.text();
+          loader.remove();
+          let text = '', navigate = null;
+          try {
+            const data = JSON.parse(raw);
+            if (typeof data === 'string')  { text = data; }
+            else if (Array.isArray(data))  { text = data[0]?.output || data[0]?.text || data[0]?.message || raw; navigate = data[0]?.navigate; }
+            else { text = data.output || data.text || data.message || raw; navigate = data.navigate; }
+          } catch { text = raw; }
+          const navHint = navigate ? (navMap.find(n => n.id === navigate) || null) : detectNav(text);
+          addBot(text, navHint);
+        } catch {
+          loader.remove();
+          addBot('Sorry, I could not connect right now. Please contact us on WhatsApp.');
+        }
+      }
+
+      function sendText() {
+        const text = input.value.trim();
+        if (!text) return;
+        addMsg('user', escHtml(text));
+        input.value = '';
+        callN8n({ message: text });
+      }
+      send.addEventListener('click', sendText);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sendText(); } });
+
+      let recorder = null, chunks = [], recording = false;
+      mic.addEventListener('click', async () => {
+        if (!recording) {
+          try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            recorder = new MediaRecorder(stream);
+            chunks = [];
+            recorder.ondataavailable = e => chunks.push(e.data);
+            recorder.onstop = () => {
+              const blob = new Blob(chunks, { type: 'audio/webm' });
+              const reader = new FileReader();
+              reader.onload = () => {
+                addMsg('user', '🎤 Voice message');
+                callN8n({ audio: reader.result.split(',')[1], mimeType: 'audio/webm' });
+              };
+              reader.readAsDataURL(blob);
+              stream.getTracks().forEach(t => t.stop());
+            };
+            recorder.start();
+            recording = true;
+            mic.classList.add('recording');
+          } catch { addBot('Microphone access was denied.'); }
+        } else {
+          recorder.stop();
+          recording = false;
+          mic.classList.remove('recording');
+        }
+      });
+    })();
   </script>
 
 </body>
