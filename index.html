@@ -1,0 +1,2096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Marca Printshop — Elevate Your Brand With Us</title>
+  <meta name="description" content="Premium custom merch and apparel in Paterson, NJ. T-shirts, hoodies, hats and more with DTF, screen printing and embroidery." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────────── */
+    :root {
+      --bg:        #0a0a0a;
+      --surface:   #111111;
+      --card:      #161616;
+      --card-hover:#1c1c1c;
+      --cyan:      #00d4ff;
+      --magenta:   #ff1aaa;
+      --yellow:    #ffe600;
+      --purple:    #b14eff;
+      --white:     #ffffff;
+      --muted:     rgba(255,255,255,0.45);
+      --border:    rgba(255,255,255,0.08);
+      --font:      'Inter', sans-serif;
+      --radius:    0px;
+      --nav-h:     72px;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    img, video { display: block; max-width: 100%; }
+    button { cursor: pointer; font-family: var(--font); border: none; background: none; }
+
+    /* ─── NAVBAR ─────────────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: var(--nav-h);
+      z-index: 1000;
+      background: rgba(10,10,10,0.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 0.5px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2.5rem;
+      transition: background 0.3s ease;
+    }
+    #navbar.scrolled { background: rgba(10,10,10,0.88); }
+
+    .nav-logo {
+      height: 70px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+      margin-left: auto;
+    }
+    .nav-links a {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* Mobile menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 8px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      width: 100%;
+      background: rgba(10,10,10,0.97);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      padding: 2rem;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--white); }
+    .mobile-menu .nav-cta { align-self: flex-start; margin-top: 0.5rem; }
+
+    /* ─── SCROLL-VIDEO HERO ──────────────────────────────────── */
+    .scroll-video-hero {
+      height: 250vh;
+      position: relative;
+      /* Anular los constraints globales de section */
+      max-width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    .scroll-video-sticky {
+      position: sticky;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+    .hero-layer {
+      display: block;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: none;
+    }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,0,0,0.65) 0%, transparent 70%),
+        linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 45%);
+      z-index: 4;
+    }
+    .hero-content {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      padding-top: var(--nav-h);
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 0.45rem 1.2rem;
+      border-radius: 999px;
+      margin-bottom: 2rem;
+    }
+    .hero-h1 {
+      font-size: clamp(2.6rem, 5.5vw, 6rem);
+      font-weight: 900;
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--white);
+      max-width: 16ch;
+      margin-bottom: 1.75rem;
+    }
+    .hero-h1 .accent-magenta { color: var(--magenta); }
+    .hero-h1 .accent-cyan    { color: var(--cyan); }
+    .hero-sub {
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      font-weight: 400;
+      color: rgba(255,255,255,0.6);
+      max-width: 38ch;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-primary {
+      background: var(--white);
+      color: #000;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.9rem 2.2rem;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.9rem 2.2rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      transform: translateY(-2px);
+    }
+    .scroll-progress-bar {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%;
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      z-index: 6;
+    }
+    .scroll-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--cyan), var(--magenta));
+      transition: width 0.05s linear;
+    }
+
+    @media (max-width: 768px) {
+      .scroll-video-hero { height: 100vh; }
+      .scroll-video-sticky { position: relative; }
+      .hero-scroll-hint { display: none; }
+    }
+    /* prefers-reduced-motion no desactiva el hero scroll */
+
+    /* ─── SECTION BASE ───────────────────────────────────────── */
+    section {
+      padding: 6rem 2.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    section.full-bleed { max-width: none; padding: 6rem 2.5rem; }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+      font-weight: 900;
+      letter-spacing: -0.025em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 3.5rem;
+    }
+
+    /* ─── PRODUCTS ───────────────────────────────────────────── */
+    #productos { padding-bottom: 6rem; }
+
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .products-header .section-title { margin-bottom: 0; }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    /* Product card */
+    .product-card {
+      background: var(--card);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .product-card:hover { background: var(--card-hover); }
+
+    .product-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 480px;
+    }
+    .product-card.solo {
+      grid-column: 1 / -1;
+      max-width: 700px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .card-image {
+      overflow: hidden;
+      position: relative;
+    }
+    .product-card.featured .card-image { height: 100%; }
+    .product-card:not(.featured):not(.solo) .card-image { aspect-ratio: 1/1; }
+    .product-card.solo .card-image { aspect-ratio: 1/1; }
+
+    .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(20%);
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.4s;
+    }
+    .product-card:hover .card-image img {
+      transform: scale(1.05);
+      filter: grayscale(0%);
+    }
+
+    .card-body {
+      padding: 2rem 2rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+    }
+    .product-card.featured .card-body {
+      padding: 3rem;
+      justify-content: center;
+    }
+
+    .card-accent-line {
+      width: 36px;
+      height: 3px;
+      margin-bottom: 1.25rem;
+    }
+    .card-number {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .card-name {
+      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      line-height: 1;
+      margin-bottom: 0.8rem;
+    }
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 32ch;
+      margin-bottom: 1.5rem;
+    }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .card-price {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .card-price strong {
+      display: block;
+      font-size: 1.5rem;
+      letter-spacing: -0.01em;
+      color: var(--white);
+    }
+    .card-btn {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.65rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--white);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .card-btn:hover {
+      background: var(--white);
+      color: #000;
+      border-color: var(--white);
+    }
+    .card-tag {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.75rem;
+      color: #000;
+    }
+
+    /* Glow hover */
+    .product-card { box-shadow: none; }
+    .product-card:hover { box-shadow: 0 0 0 1px rgba(255,255,255,0.06); }
+    .product-card[data-accent="cyan"]:hover    { box-shadow: 0 8px 40px -8px rgba(0,212,255,0.18); }
+    .product-card[data-accent="magenta"]:hover { box-shadow: 0 8px 40px -8px rgba(255,26,170,0.18); }
+    .product-card[data-accent="yellow"]:hover  { box-shadow: 0 8px 40px -8px rgba(255,230,0,0.18); }
+    .product-card[data-accent="purple"]:hover  { box-shadow: 0 8px 40px -8px rgba(177,78,255,0.18); }
+
+    /* ─── HOW IT WORKS ───────────────────────────────────────── */
+    #como-funciona {
+      background: var(--surface);
+      max-width: none;
+      padding: 6rem 2.5rem;
+    }
+    #como-funciona .inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .step-card {
+      background: var(--card);
+      padding: 2.75rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .step-number {
+      font-size: 5rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      opacity: 0.06;
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      user-select: none;
+    }
+    .step-icon {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 1.75rem;
+      position: relative;
+    }
+    .step-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .step-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .step-arrow {
+      position: absolute;
+      right: -1px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 24px;
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+    .step-card:last-child .step-arrow { display: none; }
+
+    /* ─── MARQUEE / TRUSTED BY ──────────────────────────────── */
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .marquee-wrap {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 4rem;
+    }
+    .marquee-wrap::before,
+    .marquee-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      width: 180px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .marquee-wrap::before {
+      left: 0;
+      background: linear-gradient(to right, var(--bg), transparent);
+    }
+    .marquee-wrap::after {
+      right: 0;
+      background: linear-gradient(to left, var(--bg), transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee-scroll 30s linear infinite;
+    }
+    .marquee-track:hover { animation-play-state: paused; }
+
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 160px;
+      height: 80px;
+      flex-shrink: 0;
+      margin: 0 1.5rem;
+    }
+    .marquee-logo {
+      max-width: 120px;
+      max-height: 50px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      filter: brightness(0) invert(1);
+      opacity: 0.4;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .marquee-item:hover .marquee-logo {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+
+    @media (max-width: 768px) {
+      .marquee-track { animation-duration: 20s; }
+      .marquee-item  { width: 120px; height: 60px; margin: 0 1rem; }
+      .marquee-logo  { max-width: 90px; max-height: 38px; }
+      .marquee-wrap::before,
+      .marquee-wrap::after { width: 80px; }
+    }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: #050505;
+      border-top: 0.5px solid var(--border);
+      padding: 4rem 2.5rem 2.5rem;
+    }
+    .footer-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+    .footer-brand-logo {
+      height: 80px;
+      width: auto;
+      margin-bottom: 1.25rem;
+    }
+    .footer-tagline {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 24ch;
+    }
+    .footer-col-title {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.65rem; }
+    .footer-col a {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--white); }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .social-link {
+      width: 40px; height: 40px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      font-size: 0.7rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-link:hover { border-color: var(--cyan); color: var(--cyan); }
+    .social-link svg { width: 18px; height: 18px; }
+
+    .footer-bottom {
+      border-top: 0.5px solid var(--border);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+    }
+    .footer-location {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      :root { --nav-h: 64px; }
+      section { padding: 4rem 1.25rem; }
+      section.full-bleed { padding: 4rem 1.25rem; }
+      #navbar { padding: 0 1.25rem; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .products-grid { grid-template-columns: 1fr; }
+      .product-card.featured { grid-template-columns: 1fr; }
+      .product-card.solo { max-width: 100%; }
+      .steps-grid { grid-template-columns: 1fr; gap: 2px; }
+      .step-arrow { display: none !important; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    }
+    @media (max-width: 480px) {
+      .footer-top { grid-template-columns: 1fr; }
+      .hero-h1 { font-size: clamp(2.8rem, 11vw, 5rem); }
+    }
+
+    /* ─── PRINT STANDARD ────────────────────────────────────── */
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 2.2rem;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #print-standard {
+      overflow: hidden;
+      background: var(--surface);
+      padding: 6rem 2.5rem;
+    }
+    .ps-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    .ps-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+    .ps-left { position: relative; }
+    .ps-glow {
+      position: absolute;
+      top: -3rem;
+      left: -3rem;
+      width: 12rem;
+      height: 12rem;
+      background: rgba(0,212,255,0.07);
+      border-radius: 9999px;
+      filter: blur(48px);
+      pointer-events: none;
+    }
+    .ps-headline {
+      font-size: clamp(3.2rem, 5.5vw, 5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      font-style: italic;
+      line-height: 0.92;
+      letter-spacing: -0.02em;
+      margin-bottom: 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    .ps-headline .ps-accent { color: var(--magenta); }
+    .ps-features {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+    .ps-feature {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+    .ps-icon {
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+    .ps-icon .material-symbols-outlined { font-size: 2rem; }
+    .ps-feature-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      color: var(--white);
+    }
+    .ps-feature-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .ps-image-wrap {
+      position: relative;
+    }
+    .ps-image-frame {
+      aspect-ratio: 4/5;
+      overflow: hidden;
+      position: relative;
+      border-right: 20px solid var(--cyan);
+      border-bottom: 20px solid var(--cyan);
+    }
+    .ps-image-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.4s;
+    }
+    .ps-image-wrap:hover .ps-image-frame img {
+      transform: scale(1.05);
+      filter: grayscale(0%);
+    }
+    .ps-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #000 0%, transparent 60%);
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .ps-stat-badge {
+      position: absolute;
+      bottom: -1.5rem;
+      right: -1.5rem;
+      background: var(--yellow);
+      padding: 2rem;
+      z-index: 2;
+    }
+    .ps-stat-number {
+      font-size: 3.5rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: #000;
+      line-height: 1;
+    }
+    .ps-stat-label {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #000;
+      margin-top: 0.3rem;
+    }
+    @media (max-width: 1024px) {
+      .ps-grid { grid-template-columns: 1fr; gap: 3.5rem; }
+      .ps-image-wrap { max-width: 480px; }
+    }
+    @media (max-width: 768px) {
+      #print-standard { padding: 4rem 1.25rem; }
+      .ps-grid { gap: 2.5rem; }
+    }
+
+    /* ─── PRODUCT DRAWER ────────────────────────────────────── */
+    #drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 1100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+    #drawer-overlay.active { opacity: 1; pointer-events: all; }
+
+    #product-drawer {
+      position: fixed;
+      top: 0; right: 0;
+      width: 500px;
+      max-width: 100vw;
+      height: 100%;
+      background: #111111;
+      border-left: 1px solid rgba(255,255,255,0.08);
+      z-index: 1200;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #product-drawer.active { transform: translateX(0); }
+
+    .drw-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1.75rem 2rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      flex-shrink: 0;
+    }
+    .drw-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    .drw-title {
+      font-size: 1.75rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .drw-count {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-top: 0.4rem;
+    }
+    .drw-close {
+      width: 2.4rem;
+      height: 2.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      color: var(--white);
+      font-size: 1.1rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s;
+      font-family: var(--font);
+    }
+    .drw-close:hover { background: rgba(255,255,255,0.12); }
+
+    .drw-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,0.08) transparent;
+    }
+
+    .drw-item {
+      display: grid;
+      grid-template-columns: 5.5rem 1fr;
+      gap: 0;
+      background: var(--card);
+      overflow: hidden;
+      transition: background 0.2s;
+      cursor: default;
+    }
+    .drw-item:hover { background: #1e1e1e; }
+
+    .drw-img {
+      width: 5.5rem;
+      height: 6rem;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .drw-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(30%);
+      transition: filter 0.4s, transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .drw-item:hover .drw-img img {
+      filter: grayscale(0%);
+      transform: scale(1.07);
+    }
+
+    .drw-info {
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .drw-item-name {
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      margin-bottom: 0.2rem;
+    }
+    .drw-item-desc {
+      font-size: 0.76rem;
+      color: var(--muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+    .drw-item-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.6rem;
+      gap: 0.5rem;
+    }
+    .drw-price {
+      font-size: 1rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
+    .drw-btn {
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.5rem 1.1rem;
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      color: var(--white);
+      transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.15s, box-shadow 0.25s;
+      white-space: nowrap;
+      position: relative;
+      overflow: hidden;
+    }
+    .drw-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--white);
+      transform: translateX(-100%);
+      transition: transform 0.25s cubic-bezier(0.4,0,0.2,1);
+      z-index: 0;
+    }
+    .drw-btn span { position: relative; z-index: 1; }
+    .drw-btn:hover::before { transform: translateX(0); }
+    .drw-btn:hover { color: #000; border-color: var(--white); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(255,255,255,0.12); }
+
+
+    @media (max-width: 560px) {
+      #product-drawer { width: 100vw; }
+    }
+
+    /* ─── UTILS ──────────────────────────────────────────────── */
+    .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    /* ─── CHATBOT ─────────────────────────────────────────────── */
+    #cb { position: fixed; bottom: 24px; right: 24px; z-index: 10000; font-family: var(--font); }
+
+    #cb-toggle {
+      width: 56px; height: 56px;
+      background: var(--cyan); color: #000;
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 4px 4px 0 rgba(0,212,255,0.25);
+      transition: transform 0.15s;
+    }
+    #cb-toggle:hover { transform: translateY(-2px); }
+    #cb-toggle svg { width: 24px; height: 24px; }
+
+    #cb-win {
+      display: none; flex-direction: column;
+      position: absolute; bottom: 68px; right: 0;
+      width: 340px; height: 500px;
+      background: #111;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+    }
+    #cb-win.open { display: flex; }
+
+    #cb-head {
+      padding: 0.9rem 1.2rem;
+      background: #161616;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    #cb-head-title {
+      font-size: 0.8rem; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--white);
+    }
+    #cb-head-title span { color: var(--cyan); }
+    #cb-close {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); font-size: 1rem; line-height: 1;
+      padding: 2px 6px; transition: color 0.2s;
+    }
+    #cb-close:hover { color: var(--white); }
+
+    #cb-msgs {
+      flex: 1; overflow-y: auto; padding: 1rem;
+      display: flex; flex-direction: column; gap: 0.6rem;
+      scrollbar-width: thin; scrollbar-color: #333 transparent;
+    }
+    .cb-msg {
+      max-width: 82%; padding: 0.6rem 0.9rem;
+      font-size: 0.83rem; line-height: 1.5;
+      word-break: break-word;
+    }
+    .cb-msg-bot {
+      background: #1c1c1c; color: var(--white);
+      align-self: flex-start;
+      border-left: 2px solid var(--cyan);
+    }
+    .cb-msg-user {
+      background: var(--cyan); color: #000;
+      align-self: flex-end; font-weight: 500;
+    }
+    .cb-nav-btn {
+      display: inline-block; margin-top: 0.5rem;
+      font-size: 0.75rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--cyan); border-bottom: 1px solid var(--cyan);
+      cursor: pointer; background: none; border-top: none;
+      border-left: none; border-right: none; padding: 0;
+    }
+    /* Loading dots */
+    .cb-loading { display: flex; gap: 5px; align-items: center; padding: 0.8rem 1rem; }
+    .cb-loading span {
+      width: 6px; height: 6px; background: var(--cyan);
+      border-radius: 50%; animation: cbdot 1.2s infinite;
+    }
+    .cb-loading span:nth-child(2) { animation-delay: 0.2s; }
+    .cb-loading span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes cbdot { 0%,60%,100%{opacity:0.2;transform:scale(0.8)} 30%{opacity:1;transform:scale(1)} }
+
+    #cb-bar {
+      padding: 0.75rem;
+      background: #161616;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex; gap: 0.5rem; align-items: center;
+    }
+    #cb-input {
+      flex: 1; background: #0e0e0e;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white); font-family: var(--font);
+      font-size: 0.83rem; padding: 0.55rem 0.8rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    #cb-input:focus { border-color: var(--cyan); }
+    #cb-input::placeholder { color: var(--muted); }
+    #cb-mic, #cb-send {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: #222; border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, color 0.2s;
+    }
+    #cb-mic:hover, #cb-send:hover { background: #2a2a2a; color: var(--white); }
+    #cb-mic.recording { background: #ff1aaa; color: #fff; border-color: #ff1aaa; animation: pulse 1s infinite; }
+    #cb-send { background: var(--cyan); color: #000; border-color: var(--cyan); }
+    #cb-send:hover { background: #00eeff; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+    #cb-mic svg, #cb-send svg { width: 16px; height: 16px; pointer-events: none; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════════════════════ -->
+  <nav id="navbar" role="navigation" aria-label="Navegación principal">
+    <a href="#" aria-label="La Marca Printshop — Inicio">
+      <img src="../assets/logo.svg" class="nav-logo" alt="La Marca Printshop" />
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="#productos">Products</a></li>
+      <li><a href="preview.html">Demo</a></li>
+      <li><a href="#contacto">About</a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="#productos" onclick="closeMobileMenu()">Products</a>
+    <a href="preview.html" onclick="closeMobileMenu()">Demo</a>
+    <a href="#contacto" onclick="closeMobileMenu()">About</a>
+  </div>
+
+  <main>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         HERO — SCROLL VIDEO
+    ═══════════════════════════════════════════════════════════ -->
+    <!-- SCROLL-VIDEO-SECTION -->
+    <section class="scroll-video-hero" id="scroll-hero" aria-label="Hero">
+      <div class="scroll-video-sticky">
+
+        <!-- Layer 1: imagen inicial estática -->
+        <img
+          id="heroImgStart"
+          src="../assets/explosion.jpg"
+          alt=""
+          aria-hidden="true"
+          class="hero-layer"
+          style="z-index:1; opacity:1;"
+        />
+
+        <!-- Layer 2: video controlado por scroll (NUNCA autoplay) -->
+        <video
+          id="heroVideo"
+          src="../assets/hero-scroll.mp4"
+          playsinline
+          muted
+          preload="auto"
+          aria-hidden="true"
+          class="hero-layer"
+          style="z-index:2; opacity:0;"
+        ></video>
+
+        <!-- Layer 3: imagen final estática -->
+        <img
+          id="heroImgEnd"
+          src="../assets/hero-poster.jpg"
+          alt=""
+          aria-hidden="true"
+          class="hero-layer"
+          style="z-index:3; opacity:0;"
+        />
+
+        <div class="hero-overlay" aria-hidden="true" style="z-index:4;"></div>
+
+        <div class="hero-content">
+          <span class="hero-tag">DTF &nbsp;·&nbsp; Screen Printing &nbsp;·&nbsp; Embroidery</span>
+
+          <h1 class="hero-h1">
+            Elevate&nbsp;<span class="accent-magenta">Your</span><br>
+            <span class="accent-cyan">Brand</span>&nbsp;With<br>
+            Us.
+          </h1>
+
+          <p class="hero-sub">
+            Premium custom merch and apparel. T-shirts, hoodies, hats, keychains — printed with obsession.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#productos" class="btn-primary">View Products</a>
+            <a href="#galeria" class="btn-ghost">View Our Work</a>
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         PRODUCTOS
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="productos" aria-labelledby="productos-title">
+      <div class="products-header">
+        <div>
+          <p class="section-label">Catalog</p>
+          <h2 class="section-title" id="productos-title">Our<br>Products</h2>
+        </div>
+        <p style="font-size:0.88rem; color:var(--muted); max-width:28ch; line-height:1.6; align-self:flex-end; padding-bottom:0.25rem;">
+          Orders from one unit. Nationwide shipping via UPS. Pickup in Paterson, NJ.
+        </p>
+      </div>
+
+      <div class="products-grid">
+
+        <!-- 1. CAMISETAS — Featured full-width -->
+        <article class="product-card" data-accent="cyan" aria-label="Camisetas Personalizadas" onclick="openDrawer('tshirts',event)" style="cursor:pointer">
+          <div class="card-image">
+            <span class="card-tag" style="background:var(--cyan);">Best Seller</span>
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNk3zR1oBLqmrzfRGbxmWEMEpSWMseDIhtAR1GoHpWVUCwwvDprjQn5d9A1CdGTFmNvSIuYiGBRCjDL6jfq_Kmblr2zU9-GryRC9yl31fWF472Wpp72k3JkkDkMmKn9IRRySR2RzJrzIvaf4Nd1XU3L--_AH42Om9cx2hZZ0Q-cwbJmodC4KaOpoedVwoaxEj40lqUPR2mfMnJMMkgYtHXbx7bkhHHPgUye9oGyAvaWHt79lNPHMnnzvEKIHIiqxgKmGR8QFT6Zj8"
+              alt="Camiseta personalizada premium"
+              loading="eager"
+            />
+          </div>
+          <div class="card-body">
+            <div class="card-accent-line" style="background:var(--cyan);"></div>
+            <p class="card-number">01 / 06</p>
+            <h3 class="card-name">T-Shirts</h3>
+            <p class="card-desc">Heavyweight cotton 240GSM. Full-color DTF printing. Perfect for teams, events and branded merch.</p>
+            <div class="card-footer">
+              <div class="card-price">
+                From <strong style="color:var(--cyan);">$15</strong>
+              </div>
+              <a href="https://wa.me/19733896542?text=Hi!%20I%27d%20like%20a%20quote%20for%20custom%20t-shirts." target="_blank" rel="noopener" class="card-btn" style="border-color:rgba(0,212,255,0.3);">
+                Quote →
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. HOODIES -->
+        <article class="product-card" data-accent="magenta" aria-label="Hoodies Personalizados" onclick="openDrawer('hoodies',event)" style="cursor:pointer">
+          <div class="card-image">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoisOMpRSNzhBf8qWEDFo91uVeldDCEHcduEPQS7FhiSwJoe9v42wxXez-6bE7Purzty5y-d7JGkTWq0-t7eVUXp0tnIRFqztDC-oTKRSOBgtBaWhvTdF52aYackv78pB7bmSeHLayKLMHVbDOTgK8YiCIVC-3REBX0SfWNy78RW2o9-bv-ow8jJMj5ki1Ql_5TCd-LuWx_9XcXrZbm89R5nA7k2FoGU_ZWOmomngU7hRTIDotp6nw7lw-uJg2BWEGEBJgcEvKtsA"
+              alt="Hoodie personalizado premium"
+              loading="lazy"
+            />
+          </div>
+          <div class="card-body">
+            <div class="card-accent-line" style="background:var(--magenta);"></div>
+            <p class="card-number">02 / 06</p>
+            <h3 class="card-name">Hoodies</h3>
+            <p class="card-desc">Premium fleece, oversized fit. Perfect for artist merch, teams and brands.</p>
+            <div class="card-footer">
+              <div class="card-price">
+                From <strong style="color:var(--magenta);">$35</strong>
+              </div>
+              <a href="https://wa.me/19733896542?text=Hi!%20I%27d%20like%20a%20quote%20for%20custom%20hoodies." target="_blank" rel="noopener" class="card-btn" style="border-color:rgba(255,26,170,0.3);">
+                Quote →
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. GORRAS -->
+        <article class="product-card" data-accent="yellow" aria-label="Gorras Personalizadas" onclick="openDrawer('hats',event)" style="cursor:pointer">
+          <div class="card-image">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3JWfJrMgLT0Jp1qFvbKj8WnXc4MTVpxNaO3Q6S35B9XP1V2Tr9GRyOpzMbzB6ligEX7gYLaO4mRsnkM4B9XHEZs2t2BHL5b2iuThDDx-Vr1iNTet-kc7ZtTm_0f1ZDPzAos4M_kqU-aW_3igWnRPTLh672iEoTM9-_eVpe4uZUqLoXC9YoRhwONm25M4_cRQ-MENjwo-i9q7-3h9a-451dGjPXYor3ncly-u4C9MMce7-HYapoQtkmfnh4RdPtS10Z5T5FkgkxhM"
+              alt="Gorra personalizada"
+              loading="lazy"
+            />
+          </div>
+          <div class="card-body">
+            <div class="card-accent-line" style="background:var(--yellow);"></div>
+            <p class="card-number">03 / 06</p>
+            <h3 class="card-name">Hats</h3>
+            <p class="card-desc">Embroidered and printed. 5-panel, snapback, dad hat. Your logo on every cap.</p>
+            <div class="card-footer">
+              <div class="card-price">
+                From <strong style="color:var(--yellow);">$12</strong>
+              </div>
+              <a href="https://wa.me/19733896542?text=Hi!%20I%27d%20like%20a%20quote%20for%20custom%20hats." target="_blank" rel="noopener" class="card-btn" style="border-color:rgba(255,230,0,0.3);">
+                Quote →
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. LONG SLEEVES -->
+        <article class="product-card" data-accent="purple" aria-label="Long Sleeves Personalizados" onclick="openDrawer('longsleeves',event)" style="cursor:pointer">
+          <div class="card-image">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7Ci6XfIonsRCGzkYHQOZKGUhOqLHnlRiALXLydtJ2Y-8XtKRhCtdiB7Vi52KDyEWUeNgOfUdq6Ojkf2yHzHIDuxR8h1CGP1z8wbCCxkBHRop2vpAq6-hlRI1tRk62oKb_uqW-SUkrNxMb51fpV0levAABj-Lth7sf2Rv-QXyppbEHEe_9blPG5hpU2bIEXu7hu7ixkKwPV5OzgxbORCuzFbYCjaSxZRDsl3yQCgeJs0kRcamddYAAgig6UzIC0vPjLhFeeow3bRg"
+              alt="Long sleeve personalizado"
+              loading="lazy"
+            />
+          </div>
+          <div class="card-body">
+            <div class="card-accent-line" style="background:var(--purple);"></div>
+            <p class="card-number">04 / 06</p>
+            <h3 class="card-name">Long Sleeves</h3>
+            <p class="card-desc">Cuffed streetwear style. Full-color sleeve printing. Premium heavyweight fabric for a bold look.</p>
+            <div class="card-footer">
+              <div class="card-price">
+                From <strong style="color:var(--purple);">$20</strong>
+              </div>
+              <a href="https://wa.me/19733896542?text=Hi!%20I%27d%20like%20a%20quote%20for%20custom%20long%20sleeves." target="_blank" rel="noopener" class="card-btn" style="border-color:rgba(177,78,255,0.3);">
+                Quote →
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. LLAVEROS 3D -->
+        <article class="product-card" data-accent="cyan" aria-label="Llaveros 3D Personalizados" onclick="openDrawer('keychains',event)" style="cursor:pointer">
+          <div class="card-image">
+            <span class="card-tag" style="background:var(--magenta);">New</span>
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtT-5HaSK3gAhrj2KwcQpZwGsP_sFJiprJVvT8Fsyp5wsqKXfJD-5UxmDfeXpAjVdwZGcaztdoiJ8TgQsak2UtDa5wxAqK6u5zoe9PiWoCj5SYEydJ8fP85E6dUfNBrb5YPCUq1g8ZjxgX4eJrzV5JgZ306Lgn6WuyvWytAsMTRmcCfo4jD4xi2Wec12MGDxS6LKFQXlQ1piMdfo1MOjyze42H-d1vtiGTeXAI5UunS7GG6w7wdefCO1loGhDzHuE1YX4LVy36w4Y"
+              alt="Llavero 3D personalizado"
+              loading="lazy"
+            />
+          </div>
+          <div class="card-body">
+            <div class="card-accent-line" style="background:var(--cyan);"></div>
+            <p class="card-number">05 / 06</p>
+            <h3 class="card-name">3D Keychains</h3>
+            <p class="card-desc">Custom 3D printed keychains. Souvenirs, merch and unique accessories for your brand.</p>
+            <div class="card-footer">
+              <div class="card-price">
+                From <strong style="color:var(--cyan);">$8</strong>
+              </div>
+              <a href="https://wa.me/19733896542?text=Hi!%20I%27d%20like%20a%20quote%20for%203D%20keychains." target="_blank" rel="noopener" class="card-btn" style="border-color:rgba(0,212,255,0.3);">
+                Quote →
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. POLOS — solo centered -->
+        <article class="product-card" data-accent="magenta" aria-label="Polos Personalizados" onclick="openDrawer('polos',event)" style="cursor:pointer">
+          <div class="card-image">
+            <img
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoL3bPU2lONQJ8vitIGPZwLlTysmQZKkIDjgWyxLrlq9tT6CQpQoLfJyAtRuZQSVoi3cAHqMCQKXhn4ISE6pX8UUriKH2hJPVfDdsJqAVlonomj4Yd_tGJ-KvGjNkqzLBdRPdBerRXB-v0STcjfdQeQKFzud9oxDHhpEHsS2FNUnEsTmKo5qZumUz-QcPATmp7UucE6PwwoKYlttglP88r8Xf8KfBclmMBr_jqPmH54Y7L2eLuC-uP9mo9IUNcyTQtWT_rVtv8qJk"
+              alt="Polo shirt personalizado"
+              loading="lazy"
+            />
+          </div>
+          <div class="card-body">
+            <div class="card-accent-line" style="background:var(--magenta);"></div>
+            <p class="card-number">06 / 06</p>
+            <h3 class="card-name">Polo Shirts</h3>
+            <p class="card-desc">Premium piqué knit. Corporate uniforms, teams and professional events.</p>
+            <div class="card-footer">
+              <div class="card-price">
+                From <strong style="color:var(--magenta);">$22</strong>
+              </div>
+              <a href="https://wa.me/19733896542?text=Hi!%20I%27d%20like%20a%20quote%20for%20polo%20shirts." target="_blank" rel="noopener" class="card-btn" style="border-color:rgba(255,26,170,0.3);">
+                Quote →
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         THE PRINT STANDARD
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="print-standard" aria-labelledby="ps-title">
+      <div class="ps-inner">
+        <div class="ps-grid">
+
+          <!-- Left: headline + features -->
+          <div class="ps-left">
+            <div class="ps-glow" aria-hidden="true"></div>
+            <h2 class="ps-headline" id="ps-title">
+              THE <span class="ps-accent">PRINT</span><br/>STANDARD
+            </h2>
+            <div class="ps-features">
+
+              <div class="ps-feature">
+                <div class="ps-icon">
+                  <span class="material-symbols-outlined" style="color:var(--cyan);">ink_highlighter</span>
+                </div>
+                <div>
+                  <p class="ps-feature-title">Premium Ink Injection</p>
+                  <p class="ps-feature-desc">We use top-tier industrial inks that fuse with the fabric fibers, ensuring zero cracking and vibrant colors that last for years.</p>
+                </div>
+              </div>
+
+              <div class="ps-feature">
+                <div class="ps-icon">
+                  <span class="material-symbols-outlined" style="color:var(--magenta);">precision_manufacturing</span>
+                </div>
+                <div>
+                  <p class="ps-feature-title">Precision Detailing</p>
+                  <p class="ps-feature-desc">From intricate sleeve prints to custom neck labels, our attention to detail mirrors high-end luxury streetwear production.</p>
+                </div>
+              </div>
+
+              <div class="ps-feature">
+                <div class="ps-icon">
+                  <span class="material-symbols-outlined" style="color:var(--yellow);">speed</span>
+                </div>
+                <div>
+                  <p class="ps-feature-title">Fast Lane Fulfillment</p>
+                  <p class="ps-feature-desc">Modern manufacturing means faster turnaround. Get your brand on the streets in record time without compromising quality.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Right: image + stat badge -->
+          <div class="ps-image-wrap">
+            <div class="ps-image-frame">
+              <img
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg7YrvuJYNhFKSrTrx-r04zPiM1M6s6vUsk1EJDz2oRnJtPSmRSX72XksPo9iAuNp4dsMPA72038k5r5PSvWiJ-sbYXmAQZ0aq7R9kPytQzpqutdpPTe6UWZmBGj9ijOHoVCQB365Luvohyxuw1nJ523jlr2c7tYFjdtjjekwD_dvtoYuqIz7Sdk89dSkp-WrM0H1TJ4vre6Vs0ETKjoCfi12NidpTBqEsGWJhinacHiG3KwAzvc8FDoJ6eGayu59ycw--pKX_R-4"
+                alt="Model wearing custom screen printed streetwear"
+                loading="lazy"
+              />
+              <div class="ps-image-overlay" aria-hidden="true"></div>
+            </div>
+            <div class="ps-stat-badge">
+              <div class="ps-stat-number">99.9%</div>
+              <div class="ps-stat-label">CRAZY COLOR ACCURACY</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         CÓMO FUNCIONA
+    ═══════════════════════════════════════════════════════════ -->
+    <div id="como-funciona" class="full-bleed" style="background:var(--surface); max-width:none; padding:6rem 2.5rem;">
+      <div style="max-width:1400px; margin:0 auto;">
+        <p class="section-label">The Process</p>
+        <h2 class="section-title">How It&nbsp;<span style="color:var(--cyan);">Works</span></h2>
+
+        <div class="steps-grid">
+
+          <!-- Paso 1 -->
+          <div class="step-card">
+            <span class="step-number" aria-hidden="true">01</span>
+            <div class="step-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <rect x="4" y="8" width="24" height="30" rx="2" fill="none" stroke="var(--cyan)" stroke-width="1.5"/>
+                <line x1="10" y1="16" x2="22" y2="16" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="10" y1="21" x2="22" y2="21" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="10" y1="26" x2="16" y2="26" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="32" cy="32" r="6" fill="var(--cyan)" opacity="0.15"/>
+                <path d="M29 32l2 2 4-4" stroke="var(--cyan)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="step-title">Send Your Design</h3>
+            <p class="step-desc">Send us your logo, artwork or idea via WhatsApp or email. Let us know the product, quantity and colors. Payment is made upfront.</p>
+            <div class="step-arrow" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 6h8M7 3l3 3-3 3" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Paso 2 -->
+          <div class="step-card">
+            <span class="step-number" aria-hidden="true">02</span>
+            <div class="step-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <rect x="6" y="10" width="28" height="20" rx="1" fill="none" stroke="var(--magenta)" stroke-width="1.5"/>
+                <circle cx="20" cy="20" r="5" fill="none" stroke="var(--magenta)" stroke-width="1.5"/>
+                <circle cx="20" cy="20" r="2" fill="var(--magenta)"/>
+                <line x1="6" y1="30" x2="34" y2="30" stroke="var(--magenta)" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <h3 class="step-title">We Print It</h3>
+            <p class="step-desc">We generate a digital mockup in 24–48 hours for your approval. Once approved, production takes 5–7 business days using premium inks.</p>
+            <div class="step-arrow" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                <path d="M2 6h8M7 3l3 3-3 3" stroke="var(--muted)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Paso 3 -->
+          <div class="step-card">
+            <span class="step-number" aria-hidden="true">03</span>
+            <div class="step-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                <path d="M8 14l12-6 12 6v14l-12 6L8 28V14z" fill="none" stroke="var(--yellow)" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M8 14l12 6 12-6" stroke="var(--yellow)" stroke-width="1.5" stroke-linejoin="round"/>
+                <line x1="20" y1="20" x2="20" y2="34" stroke="var(--yellow)" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <h3 class="step-title">You Receive It</h3>
+            <p class="step-desc">Pick up in person in Paterson, NJ — or nationwide shipping via UPS coast to coast. Your merch ready to launch.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TRUSTED BY / CLIENT LOGOS
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="clientes" style="padding:5rem 0; overflow:hidden;">
+
+      <!-- Header -->
+      <div style="max-width:1400px; margin:0 auto; padding:0 2.5rem; text-align:center; margin-bottom:3.5rem;">
+        <p class="section-label" style="margin-bottom:0.75rem;">Trusted By</p>
+        <h2 style="font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:900; letter-spacing:-0.03em; line-height:1.1; margin-bottom:0.85rem;">
+          Brands We've Built For
+        </h2>
+        <p style="font-size:0.9rem; color:var(--muted); max-width:40ch; margin:0 auto;">
+          From local startups to established businesses across New Jersey
+        </p>
+      </div>
+
+      <!-- Marquee -->
+      <div class="marquee-wrap">
+        <!-- fade edges -->
+        <div class="marquee-track" id="marquee-track">
+
+          <!-- CLIENT LOGOS: Replace the src of each <img> below with your client's logo -->
+
+          <!-- Logo 1 --> <div class="marquee-item"><img src="https://logo.clearbit.com/nike.com"       alt="Nike"       class="marquee-logo" /></div>
+          <!-- Logo 2 --> <div class="marquee-item"><img src="https://logo.clearbit.com/adidas.com"     alt="Adidas"     class="marquee-logo" /></div>
+          <!-- Logo 3 --> <div class="marquee-item"><img src="https://logo.clearbit.com/starbucks.com"  alt="Starbucks"  class="marquee-logo" /></div>
+          <!-- Logo 4 --> <div class="marquee-item"><img src="https://logo.clearbit.com/target.com"     alt="Target"     class="marquee-logo" /></div>
+          <!-- Logo 5 --> <div class="marquee-item"><img src="https://logo.clearbit.com/spotify.com"    alt="Spotify"    class="marquee-logo" /></div>
+          <!-- Logo 6 --> <div class="marquee-item"><img src="https://logo.clearbit.com/airbnb.com"     alt="Airbnb"     class="marquee-logo" /></div>
+          <!-- Logo 7 --> <div class="marquee-item"><img src="https://logo.clearbit.com/shopify.com"    alt="Shopify"    class="marquee-logo" /></div>
+          <!-- Logo 8 --> <div class="marquee-item"><img src="https://logo.clearbit.com/slack.com"      alt="Slack"      class="marquee-logo" /></div>
+
+          <!-- Duplicate set for seamless infinite loop -->
+          <div class="marquee-item"><img src="https://logo.clearbit.com/nike.com"       alt="" class="marquee-logo" aria-hidden="true" /></div>
+          <div class="marquee-item"><img src="https://logo.clearbit.com/adidas.com"     alt="" class="marquee-logo" aria-hidden="true" /></div>
+          <div class="marquee-item"><img src="https://logo.clearbit.com/starbucks.com"  alt="" class="marquee-logo" aria-hidden="true" /></div>
+          <div class="marquee-item"><img src="https://logo.clearbit.com/target.com"     alt="" class="marquee-logo" aria-hidden="true" /></div>
+          <div class="marquee-item"><img src="https://logo.clearbit.com/spotify.com"    alt="" class="marquee-logo" aria-hidden="true" /></div>
+          <div class="marquee-item"><img src="https://logo.clearbit.com/airbnb.com"     alt="" class="marquee-logo" aria-hidden="true" /></div>
+          <div class="marquee-item"><img src="https://logo.clearbit.com/shopify.com"    alt="" class="marquee-logo" aria-hidden="true" /></div>
+          <div class="marquee-item"><img src="https://logo.clearbit.com/slack.com"      alt="" class="marquee-logo" aria-hidden="true" /></div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         CONTACT (id para anchor de nav)
+    ═══════════════════════════════════════════════════════════ -->
+    <section id="contacto" style="padding:4rem 2.5rem;">
+      <div style="max-width:1400px; margin:0 auto;">
+        <p class="section-label" style="margin-bottom:0.5rem;">Contact Us</p>
+        <div style="display:grid; grid-template-columns:1fr 1.4fr; gap:3rem; align-items:start; margin-top:1.5rem;">
+
+          <!-- Left: info + shipping + buttons -->
+          <div style="display:flex; flex-direction:column; gap:1.5rem;">
+
+            <!-- Contact info -->
+            <div style="display:flex; flex-direction:column; gap:0.75rem;">
+              <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+                <span style="font-size:1.1rem; line-height:1;">📍</span>
+                <div>
+                  <p style="font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-bottom:0.2rem;">Address</p>
+                  <p style="font-size:0.88rem; color:var(--white); line-height:1.5;">313 Market St, Paterson, NJ 07501</p>
+                </div>
+              </div>
+              <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+                <span style="font-size:1.1rem; line-height:1;">📱</span>
+                <div>
+                  <p style="font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-bottom:0.2rem;">WhatsApp</p>
+                  <a href="https://wa.me/19733896542" style="font-size:0.88rem; color:var(--white);">+1 (973) 389-6542</a>
+                </div>
+              </div>
+              <div style="display:flex; align-items:flex-start; gap:0.75rem;">
+                <span style="font-size:1.1rem; line-height:1;">✉️</span>
+                <div>
+                  <p style="font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); margin-bottom:0.2rem;">Email</p>
+                  <a href="mailto:lamarca.printshop@gmail.com" style="font-size:0.88rem; color:var(--white);">lamarca.printshop@gmail.com</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping with UPS -->
+            <div style="padding:1rem 1.25rem; background:var(--card); border:0.5px solid var(--border);">
+              <div style="display:flex; align-items:center; gap:0.6rem; margin-bottom:0.5rem;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+                <p style="font-size:0.78rem; font-weight:800; letter-spacing:0.1em; text-transform:uppercase; color:var(--cyan);">Shipping with UPS</p>
+              </div>
+              <p style="font-size:0.82rem; color:var(--muted); line-height:1.6;">We ship nationwide via UPS. Shipping costs are calculated at checkout based on destination and package size. Orders typically ship within 5–7 business days after demo approval.</p>
+            </div>
+
+            <!-- Hours -->
+            <p style="font-size:0.8rem; color:var(--muted); line-height:1.7;">
+              Mon–Fri 9am–6pm ET &nbsp;·&nbsp; Sat 10am–3pm ET
+            </p>
+
+            <!-- Buttons -->
+            <div style="display:flex; gap:1rem; flex-wrap:wrap;">
+              <a href="https://wa.me/19733896542?text=Hi!%20I%27d%20like%20to%20place%20an%20order." target="_blank" rel="noopener" class="btn-primary" style="font-size:0.8rem;">WhatsApp</a>
+              <a href="mailto:lamarca.printshop@gmail.com" class="btn-ghost" style="font-size:0.8rem;">Email Us</a>
+            </div>
+          </div>
+
+          <!-- Right: Google Maps -->
+          <div style="position:relative; border:0.5px solid var(--border); overflow:hidden; line-height:0;">
+            <iframe
+              src="https://maps.google.com/maps?q=313+Market+St,+Paterson,+NJ+07501&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              width="100%" height="380"
+              style="border:0; display:block;"
+              allowfullscreen="" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="La Marca Printshop location"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════════ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+
+        <!-- Brand -->
+        <div>
+          <img src="../assets/logo.svg" class="footer-brand-logo" alt="La Marca Printshop" />
+          <p class="footer-tagline">Elevate Your Brand With Us.<br>Premium custom merch for brands that don't compromise on quality.</p>
+          <div class="social-links" style="margin-top:1.5rem;">
+            <!-- Instagram -->
+            <a href="#" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+              </svg>
+            </a>
+            <!-- WhatsApp -->
+            <a href="https://wa.me/19733896542" target="_blank" rel="noopener" class="social-link" aria-label="WhatsApp">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Products -->
+        <div class="footer-col">
+          <p class="footer-col-title">Products</p>
+          <ul>
+            <li><a href="#productos">T-Shirts</a></li>
+            <li><a href="#productos">Hoodies</a></li>
+            <li><a href="#productos">Hats</a></li>
+            <li><a href="#productos">3D Keychains</a></li>
+            <li><a href="#productos">Polo Shirts</a></li>
+          </ul>
+        </div>
+
+        <!-- Info -->
+        <div class="footer-col">
+          <p class="footer-col-title">Company</p>
+          <ul>
+            <li><a href="#galeria">Gallery</a></li>
+            <li><a href="#como-funciona">How It Works</a></li>
+            <li><a href="#contacto">Contact</a></li>
+            <li><a href="#precios">Pricing</a></li>
+          </ul>
+        </div>
+
+        <!-- Location -->
+        <div class="footer-col">
+          <p class="footer-col-title">Location</p>
+          <ul>
+            <li style="color:var(--muted); font-size:0.85rem; line-height:1.7;">313 Market St<br>Paterson, NJ 07501</li>
+          </ul>
+          <p style="font-size:0.78rem; color:var(--muted); margin-top:1rem; line-height:1.6;">
+            Mon–Fri 9am–6pm ET<br>
+            Sat 10am–3pm ET
+          </p>
+        </div>
+
+        <!-- Legal -->
+        <div class="footer-col">
+          <p class="footer-col-title">Legal</p>
+          <ul>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-of-service.html">Terms of Service</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 La Marca Printshop. All rights reserved.</p>
+        <p class="footer-location">Paterson, NJ · Nationwide via UPS</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- PRODUCT DRAWER -->
+  <div id="drawer-overlay" onclick="closeDrawer()"></div>
+  <aside id="product-drawer" role="dialog" aria-modal="true" aria-labelledby="drw-title-text">
+    <div class="drw-header">
+      <div>
+        <p class="drw-label">The Collection</p>
+        <h3 class="drw-title" id="drw-title-text">—</h3>
+        <p class="drw-count" id="drw-count">—</p>
+      </div>
+      <button class="drw-close" onclick="closeDrawer()" aria-label="Close panel">✕</button>
+    </div>
+    <div class="drw-body" id="drw-body"></div>
+  </aside>
+
+  <!-- CHATBOT -->
+  <div id="cb">
+    <button id="cb-toggle" aria-label="Open chat">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+      </svg>
+    </button>
+    <div id="cb-win" aria-hidden="true" role="dialog" aria-label="Chat with La Marca">
+      <div id="cb-head">
+        <span id="cb-head-title"><span>La Marca</span> · Support</span>
+        <button id="cb-close" aria-label="Close chat">✕</button>
+      </div>
+      <div id="cb-msgs" role="log" aria-live="polite"></div>
+      <div id="cb-bar">
+        <input id="cb-input" type="text" placeholder="Ask us anything..." autocomplete="off" />
+        <button id="cb-mic" aria-label="Record voice message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="9" y="2" width="6" height="11" rx="3"/>
+            <path d="M19 10a7 7 0 0 1-14 0M12 19v3M8 22h8"/>
+          </svg>
+        </button>
+        <button id="cb-send" aria-label="Send message">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SCRIPTS
+  ═══════════════════════════════════════════════════════════ -->
+  <script>
+    /* ── Navbar scroll opacity ───────────────────────────── */
+    (function() {
+      const nav = document.getElementById('navbar');
+      window.addEventListener('scroll', function() {
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+      }, { passive: true });
+    })();
+
+    /* ── Mobile menu ─────────────────────────────────────── */
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu').classList.remove('open');
+      document.getElementById('hamburgerBtn').classList.remove('open');
+      document.getElementById('hamburgerBtn').setAttribute('aria-expanded', 'false');
+    }
+    (function() {
+      const btn  = document.getElementById('hamburgerBtn');
+      const menu = document.getElementById('mobileMenu');
+      btn.addEventListener('click', function() {
+        const isOpen = menu.classList.toggle('open');
+        btn.classList.toggle('open', isOpen);
+        btn.setAttribute('aria-expanded', isOpen);
+        menu.setAttribute('aria-hidden', !isOpen);
+      });
+    })();
+
+    /* ── Scroll-driven hero: 3 capas (imgStart → video → imgEnd) ── */
+    (function() {
+      const hero         = document.getElementById('scroll-hero');
+      const imgStart     = document.getElementById('heroImgStart');
+      const video        = document.getElementById('heroVideo');
+      const imgEnd       = document.getElementById('heroImgEnd');
+      if (!hero || !imgStart || !video || !imgEnd) return;
+
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      if (isMobile) {
+        imgStart.style.opacity = '1';
+        video.style.opacity    = '0';
+        imgEnd.style.opacity   = '0';
+        return;
+      }
+
+      // Estado inicial: solo imgStart visible
+      imgStart.style.opacity = '1';
+      video.style.opacity    = '0';
+      imgEnd.style.opacity   = '0';
+
+      video.pause();
+
+      const heroText = hero.querySelector('.hero-tag');
+      const heroH1   = hero.querySelector('.hero-h1');
+      const heroSub  = hero.querySelector('.hero-sub');
+
+      function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+      function norm(a, b, v)    { return clamp((v - a) / (b - a), 0, 1); }
+
+      // Lerp factor: how fast the display catches up to the scroll target.
+      // Lower = smoother/lazier (0.06 = ocean-wave feel). Range: 0.04–0.15.
+      const LERP = 0.06;
+      let displayP = 0;
+
+      function loop() {
+        const scrolled   = -hero.getBoundingClientRect().top;
+        const scrollable = hero.offsetHeight - window.innerHeight;
+        const targetP    = scrollable > 0 ? clamp(scrolled / scrollable, 0, 1) : 0;
+
+        // Smoothly drift toward the scroll target (ocean-wave feel)
+        displayP += (targetP - displayP) * LERP;
+        const p = displayP;
+
+        // Video seek (0–82% del progreso = duración completa)
+        if (video.readyState >= 1 && video.duration && !video.seeking) {
+          video.currentTime = norm(0, 0.82, p) * video.duration;
+        }
+
+        // Capas: imgStart → video → imgEnd
+        imgStart.style.opacity = (1 - norm(0, 0.08, p)).toFixed(3);
+        video.style.opacity    = (norm(0, 0.08, p) * (1 - norm(0.82, 0.90, p))).toFixed(3);
+        imgEnd.style.opacity   = norm(0.82, 0.90, p).toFixed(3);
+
+        // Tag, título y subtitle se desvanecen entre 5%–22%.
+        const textAlpha = (1 - norm(0.05, 0.22, p)).toFixed(3);
+        if (heroText) heroText.style.opacity = textAlpha;
+        if (heroH1)   heroH1.style.opacity   = textAlpha;
+        if (heroSub)  heroSub.style.opacity  = textAlpha;
+
+        requestAnimationFrame(loop);
+      }
+
+      requestAnimationFrame(loop);
+    })();
+
+    /* ── Chatbot ─────────────────────────────────────────────── */
+    (function() {
+      const WEBHOOK   = 'https://omar-test-n8n.lluiko.easypanel.host/webhook/6bd7f11c-b2ac-4d05-84b3-1511bc277484';
+      const sessionId = Math.random().toString(36).slice(2);
+
+      const toggle = document.getElementById('cb-toggle');
+      const win    = document.getElementById('cb-win');
+      const close  = document.getElementById('cb-close');
+      const msgs   = document.getElementById('cb-msgs');
+      const input  = document.getElementById('cb-input');
+      const send   = document.getElementById('cb-send');
+      const mic    = document.getElementById('cb-mic');
+
+      const navMap = [
+        { keys: ['t-shirt','tshirt','camiseta','shirt','tee'],             id: '#productos',     label: 'View T-Shirts' },
+        { keys: ['hoodie','sudadera','sweatshirt'],                         id: '#productos',     label: 'View Hoodies' },
+        { keys: ['hat','gorra','cap','embroidery','bordado','keychain','llavero'], id: '#productos', label: 'View Products' },
+        { keys: ['product','producto','catalog','catálogo','merch'],        id: '#productos',     label: 'View Products' },
+        { keys: ['how','process','proceso','steps','pasos','works'],        id: '#como-funciona', label: 'See How It Works' },
+        { keys: ['contact','contacto','order','pedido','quote','whatsapp'], id: '#contacto',      label: 'Contact Us' },
+      ];
+
+      function detectNav(text) {
+        const lower = text.toLowerCase();
+        return navMap.find(n => n.keys.some(k => lower.includes(k))) || null;
+      }
+
+      toggle.addEventListener('click', () => {
+        const open = win.classList.toggle('open');
+        win.setAttribute('aria-hidden', String(!open));
+        if (open && msgs.children.length === 0) {
+          addBot("Hi! 👋 I'm La Marca's assistant. Ask me about our products, pricing, or how to place an order.");
+        }
+      });
+      close.addEventListener('click', () => {
+        win.classList.remove('open');
+        win.setAttribute('aria-hidden', 'true');
+      });
+
+      function escHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+      function addMsg(role, html) {
+        const d = document.createElement('div');
+        d.className = 'cb-msg cb-msg-' + role;
+        d.innerHTML = html;
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+        return d;
+      }
+
+      function addBot(text, navHint) {
+        let html = escHtml(text);
+        if (navHint) html += `<br><button class="cb-nav-btn" data-target="${navHint.id}">→ ${navHint.label}</button>`;
+        const d = addMsg('bot', html);
+        d.querySelectorAll('.cb-nav-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const el = document.querySelector(btn.dataset.target);
+            if (el) { el.scrollIntoView({ behavior: 'smooth' }); win.classList.remove('open'); }
+          });
+        });
+      }
+
+      function addLoading() {
+        const d = document.createElement('div');
+        d.className = 'cb-msg cb-msg-bot cb-loading';
+        d.innerHTML = '<span></span><span></span><span></span>';
+        msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+        return d;
+      }
+
+      async function callN8n(payload) {
+        const loader = addLoading();
+        try {
+          const res = await fetch(WEBHOOK, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...payload, sessionId })
+          });
+          const raw = await res.text();
+          loader.remove();
+          let text = '', navigate = null;
+          try {
+            const data = JSON.parse(raw);
+            if (typeof data === 'string')  { text = data; }
+            else if (Array.isArray(data))  { text = data[0]?.output || data[0]?.text || data[0]?.message || raw; navigate = data[0]?.navigate; }
+            else { text = data.output || data.text || data.message || raw; navigate = data.navigate; }
+          } catch { text = raw; }
+          const navHint = navigate ? (navMap.find(n => n.id === navigate) || null) : detectNav(text);
+          addBot(text, navHint);
+        } catch {
+          loader.remove();
+          addBot('Sorry, I could not connect right now. Please contact us on WhatsApp.');
+        }
+      }
+
+      function sendText() {
+        const text = input.value.trim();
+        if (!text) return;
+        addMsg('user', escHtml(text));
+        input.value = '';
+        callN8n({ message: text });
+      }
+      send.addEventListener('click', sendText);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); sendText(); } });
+
+      let recorder = null, chunks = [], recording = false;
+      mic.addEventListener('click', async () => {
+        if (!recording) {
+          try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            recorder = new MediaRecorder(stream);
+            chunks = [];
+            recorder.ondataavailable = e => chunks.push(e.data);
+            recorder.onstop = () => {
+              const blob = new Blob(chunks, { type: 'audio/webm' });
+              const reader = new FileReader();
+              reader.onload = () => {
+                addMsg('user', '🎤 Voice message');
+                callN8n({ audio: reader.result.split(',')[1], mimeType: 'audio/webm' });
+              };
+              reader.readAsDataURL(blob);
+              stream.getTracks().forEach(t => t.stop());
+            };
+            recorder.start();
+            recording = true;
+            mic.classList.add('recording');
+          } catch { addBot('Microphone access was denied.'); }
+        } else {
+          recorder.stop();
+          recording = false;
+          mic.classList.remove('recording');
+        }
+      });
+    })();
+  </script>
+
+  <!-- ── Product Drawer (global scope) ──────────────────── -->
+  <script>
+    (function() {
+      const IMG = 'https://lh3.googleusercontent.com/aida-public/';
+      const DRAWER_DATA = {
+        tshirts: {
+          title: 'T-Shirts', accent: '#00d4ff',
+          items: [
+            { name: 'Cotton T-Shirts', desc: 'Custom tees printed front &amp; back with your logo. 100% premium cotton for comfort and durability. Full-color DTF printing — vivid colors, sharp detail, and long-lasting wash resistance.', price: '$15', img: IMG+'AB6AXuBNk3zR1oBLqmrzfRGbxmWEMEpSWMseDIhtAR1GoHpWVUCwwvDprjQn5d9A1CdGTFmNvSIuYiGBRCjDL6jfq_Kmblr2zU9-GryRC9yl31fWF472Wpp72k3JkkDkMmKn9IRRySR2RzJrzIvaf4Nd1XU3L--_AH42Om9cx2hZZ0Q-cwbJmodC4KaOpoedVwoaxEj40lqUPR2mfMnJMMkgYtHXbx7bkhHHPgUye9oGyAvaWHt79lNPHMnnzvEKIHIiqxgKmGR8QFT6Zj8' },
+            { name: 'Oversized Tee',  desc: 'Dropped shoulders, relaxed fit. Premium streetwear silhouette for artist drops.',             price: '$18', img: IMG+'AB6AXuBNk3zR1oBLqmrzfRGbxmWEMEpSWMseDIhtAR1GoHpWVUCwwvDprjQn5d9A1CdGTFmNvSIuYiGBRCjDL6jfq_Kmblr2zU9-GryRC9yl31fWF472Wpp72k3JkkDkMmKn9IRRySR2RzJrzIvaf4Nd1XU3L--_AH42Om9cx2hZZ0Q-cwbJmodC4KaOpoedVwoaxEj40lqUPR2mfMnJMMkgYtHXbx7bkhHHPgUye9oGyAvaWHt79lNPHMnnzvEKIHIiqxgKmGR8QFT6Zj8' },
+            { name: 'Cropped Tee',    desc: 'Boxy cropped cut, hits at the waist. Made for bold graphics and fashion-forward drops.',     price: '$17', img: IMG+'AB6AXuBNk3zR1oBLqmrzfRGbxmWEMEpSWMseDIhtAR1GoHpWVUCwwvDprjQn5d9A1CdGTFmNvSIuYiGBRCjDL6jfq_Kmblr2zU9-GryRC9yl31fWF472Wpp72k3JkkDkMmKn9IRRySR2RzJrzIvaf4Nd1XU3L--_AH42Om9cx2hZZ0Q-cwbJmodC4KaOpoedVwoaxEj40lqUPR2mfMnJMMkgYtHXbx7bkhHHPgUye9oGyAvaWHt79lNPHMnnzvEKIHIiqxgKmGR8QFT6Zj8' },
+          ]
+        },
+        hoodies: {
+          title: 'Hoodies', accent: '#ff1aaa',
+          items: [
+            { name: 'Pullover Hoodie',  desc: 'Fleece lined, kangaroo pocket. The streetwear staple. Heavy 380GSM blend.',              price: '$35', img: IMG+'AB6AXuAoisOMpRSNzhBf8qWEDFo91uVeldDCEHcduEPQS7FhiSwJoe9v42wxXez-6bE7Purzty5y-d7JGkTWq0-t7eVUXp0tnIRFqztDC-oTKRSOBgtBaWhvTdF52aYackv78pB7bmSeHLayKLMHVbDOTgK8YiCIVC-3REBX0SfWNy78RW2o9-bv-ow8jJMj5ki1Ql_5TCd-LuWx_9XcXrZbm89R5nA7k2FoGU_ZWOmomngU7hRTIDotp6nw7lw-uJg2BWEGEBJgcEvKtsA' },
+            { name: 'Zip-Up Hoodie',    desc: 'Full zip with YKK zipper. Premium fleece interior. Versatile layering piece.',            price: '$42', img: IMG+'AB6AXuAoisOMpRSNzhBf8qWEDFo91uVeldDCEHcduEPQS7FhiSwJoe9v42wxXez-6bE7Purzty5y-d7JGkTWq0-t7eVUXp0tnIRFqztDC-oTKRSOBgtBaWhvTdF52aYackv78pB7bmSeHLayKLMHVbDOTgK8YiCIVC-3REBX0SfWNy78RW2o9-bv-ow8jJMj5ki1Ql_5TCd-LuWx_9XcXrZbm89R5nA7k2FoGU_ZWOmomngU7hRTIDotp6nw7lw-uJg2BWEGEBJgcEvKtsA' },
+            { name: 'Oversized Hoodie', desc: 'Dropped shoulders, boxy fit. Extended back hem. Built for statement streetwear.',         price: '$40', img: IMG+'AB6AXuAoisOMpRSNzhBf8qWEDFo91uVeldDCEHcduEPQS7FhiSwJoe9v42wxXez-6bE7Purzty5y-d7JGkTWq0-t7eVUXp0tnIRFqztDC-oTKRSOBgtBaWhvTdF52aYackv78pB7bmSeHLayKLMHVbDOTgK8YiCIVC-3REBX0SfWNy78RW2o9-bv-ow8jJMj5ki1Ql_5TCd-LuWx_9XcXrZbm89R5nA7k2FoGU_ZWOmomngU7hRTIDotp6nw7lw-uJg2BWEGEBJgcEvKtsA' },
+          ]
+        },
+        hats: {
+          title: 'Hats', accent: '#ffe600',
+          items: [
+            { name: 'Snapback',        desc: '6-panel, structured front, flat brim. Embroidered or printed logo. One size fits all.',   price: '$12', img: IMG+'AB6AXuA3JWfJrMgLT0Jp1qFvbKj8WnXc4MTVpxNaO3Q6S35B9XP1V2Tr9GRyOpzMbzB6ligEX7gYLaO4mRsnkM4B9XHEZs2t2BHL5b2iuThDDx-Vr1iNTet-kc7ZtTm_0f1ZDPzAos4M_kqU-aW_3igWnRPTLh672iEoTM9-_eVpe4uZUqLoXC9YoRhwONm25M4_cRQ-MENjwo-i9q7-3h9a-451dGjPXYor3ncly-u4C9MMce7-HYapoQtkmfnh4RdPtS10Z5T5FkgkxhM' },
+            { name: 'Dad Hat',         desc: 'Unstructured, low profile, curved brim. Washed cotton. Clean minimal aesthetic.',         price: '$14', img: IMG+'AB6AXuA3JWfJrMgLT0Jp1qFvbKj8WnXc4MTVpxNaO3Q6S35B9XP1V2Tr9GRyOpzMbzB6ligEX7gYLaO4mRsnkM4B9XHEZs2t2BHL5b2iuThDDx-Vr1iNTet-kc7ZtTm_0f1ZDPzAos4M_kqU-aW_3igWnRPTLh672iEoTM9-_eVpe4uZUqLoXC9YoRhwONm25M4_cRQ-MENjwo-i9q7-3h9a-451dGjPXYor3ncly-u4C9MMce7-HYapoQtkmfnh4RdPtS10Z5T5FkgkxhM' },
+            { name: '5-Panel Camp Cap',desc: 'Minimal camp-style silhouette. Flat brim, fabric strap closure. Great for collaborations.', price: '$13', img: IMG+'AB6AXuA3JWfJrMgLT0Jp1qFvbKj8WnXc4MTVpxNaO3Q6S35B9XP1V2Tr9GRyOpzMbzB6ligEX7gYLaO4mRsnkM4B9XHEZs2t2BHL5b2iuThDDx-Vr1iNTet-kc7ZtTm_0f1ZDPzAos4M_kqU-aW_3igWnRPTLh672iEoTM9-_eVpe4uZUqLoXC9YoRhwONm25M4_cRQ-MENjwo-i9q7-3h9a-451dGjPXYor3ncly-u4C9MMce7-HYapoQtkmfnh4RdPtS10Z5T5FkgkxhM' },
+          ]
+        },
+        longsleeves: {
+          title: 'Long Sleeves', accent: '#b14eff',
+          items: [
+            { name: 'Classic L/S Tee', desc: 'Crew neck, heavyweight cotton. Full-arm canvas for graphics, text or sleeve prints.',     price: '$20', img: IMG+'AB6AXuA7Ci6XfIonsRCGzkYHQOZKGUhOqLHnlRiALXLydtJ2Y-8XtKRhCtdiB7Vi52KDyEWUeNgOfUdq6Ojkf2yHzHIDuxR8h1CGP1z8wbCCxkBHRop2vpAq6-hlRI1tRk62oKb_uqW-SUkrNxMb51fpV0levAABj-Lth7sf2Rv-QXyppbEHEe_9blPG5hpU2bIEXu7hu7ixkKwPV5OzgxbORCuzFbYCjaSxZRDsl3yQCgeJs0kRcamddYAAgig6UzIC0vPjLhFeeow3bRg' },
+            { name: 'Raglan L/S',      desc: 'Two-tone contrast sleeves, athletic cut. DTF or screen print on body and sleeves.',       price: '$22', img: IMG+'AB6AXuA7Ci6XfIonsRCGzkYHQOZKGUhOqLHnlRiALXLydtJ2Y-8XtKRhCtdiB7Vi52KDyEWUeNgOfUdq6Ojkf2yHzHIDuxR8h1CGP1z8wbCCxkBHRop2vpAq6-hlRI1tRk62oKb_uqW-SUkrNxMb51fpV0levAABj-Lth7sf2Rv-QXyppbEHEe_9blPG5hpU2bIEXu7hu7ixkKwPV5OzgxbORCuzFbYCjaSxZRDsl3yQCgeJs0kRcamddYAAgig6UzIC0vPjLhFeeow3bRg' },
+            { name: 'Thermal L/S',     desc: 'Waffle knit texture, cold-weather weight. Unique surface for tonal or bold prints.',      price: '$25', img: IMG+'AB6AXuA7Ci6XfIonsRCGzkYHQOZKGUhOqLHnlRiALXLydtJ2Y-8XtKRhCtdiB7Vi52KDyEWUeNgOfUdq6Ojkf2yHzHIDuxR8h1CGP1z8wbCCxkBHRop2vpAq6-hlRI1tRk62oKb_uqW-SUkrNxMb51fpV0levAABj-Lth7sf2Rv-QXyppbEHEe_9blPG5hpU2bIEXu7hu7ixkKwPV5OzgxbORCuzFbYCjaSxZRDsl3yQCgeJs0kRcamddYAAgig6UzIC0vPjLhFeeow3bRg' },
+          ]
+        },
+        keychains: {
+          title: '3D Keychains', accent: '#00d4ff',
+          items: [
+            { name: 'Logo Keychain',      desc: 'Your logo in full 3D. PLA resin, painted and sealed. Minimum 10 units.',              price: '$8',  img: IMG+'AB6AXuAtT-5HaSK3gAhrj2KwcQpZwGsP_sFJiprJVvT8Fsyp5wsqKXfJD-5UxmDfeXpAjVdwZGcaztdoiJ8TgQsak2UtDa5wxAqK6u5zoe9PiWoCj5SYEydJ8fP85E6dUfNBrb5YPCUq1g8ZjxgX4eJrzV5JgZ306Lgn6WuyvWytAsMTRmcCfo4jD4xi2Wec12MGDxS6LKFQXlQ1piMdfo1MOjyze42H-d1vtiGTeXAI5UunS7GG6w7wdefCO1loGhDzHuE1YX4LVy36w4Y' },
+            { name: 'Character Keychain', desc: 'Custom mascot or character design. Full color, detailed sculpt. Perfect merch item.', price: '$10', img: IMG+'AB6AXuAtT-5HaSK3gAhrj2KwcQpZwGsP_sFJiprJVvT8Fsyp5wsqKXfJD-5UxmDfeXpAjVdwZGcaztdoiJ8TgQsak2UtDa5wxAqK6u5zoe9PiWoCj5SYEydJ8fP85E6dUfNBrb5YPCUq1g8ZjxgX4eJrzV5JgZ306Lgn6WuyvWytAsMTRmcCfo4jD4xi2Wec12MGDxS6LKFQXlQ1piMdfo1MOjyze42H-d1vtiGTeXAI5UunS7GG6w7wdefCO1loGhDzHuE1YX4LVy36w4Y' },
+            { name: 'Custom Shape',       desc: 'Any shape, any color. Send us your concept and we build it in 3D. Unlimited options.', price: '$12', img: IMG+'AB6AXuAtT-5HaSK3gAhrj2KwcQpZwGsP_sFJiprJVvT8Fsyp5wsqKXfJD-5UxmDfeXpAjVdwZGcaztdoiJ8TgQsak2UtDa5wxAqK6u5zoe9PiWoCj5SYEydJ8fP85E6dUfNBrb5YPCUq1g8ZjxgX4eJrzV5JgZ306Lgn6WuyvWytAsMTRmcCfo4jD4xi2Wec12MGDxS6LKFQXlQ1piMdfo1MOjyze42H-d1vtiGTeXAI5UunS7GG6w7wdefCO1loGhDzHuE1YX4LVy36w4Y' },
+          ]
+        },
+        polos: {
+          title: 'Polo Shirts', accent: '#ff1aaa',
+          items: [
+            { name: 'Classic Polo',     desc: 'Premium piqué knit, 2-button placket. Corporate uniforms, team kits, branded merch.',   price: '$22', img: IMG+'AB6AXuBoL3bPU2lONQJ8vitIGPZwLlTysmQZKkIDjgWyxLrlq9tT6CQpQoLfJyAtRuZQSVoi3cAHqMCQKXhn4ISE6pX8UUriKH2hJPVfDdsJqAVlonomj4Yd_tGJ-KvGjNkqzLBdRPdBerRXB-v0STcjfdQeQKFzud9oxDHhpEHsS2FNUnEsTmKo5qZumUz-QcPATmp7UucE6PwwoKYlttglP88r8Xf8KfBclmMBr_jqPmH54Y7L2eLuC-uP9mo9IUNcyTQtWT_rVtv8qJk' },
+            { name: 'Performance Polo', desc: 'Moisture-wicking polyester blend. Breathable mesh. Perfect for sports teams and events.',price: '$26', img: IMG+'AB6AXuBoL3bPU2lONQJ8vitIGPZwLlTysmQZKkIDjgWyxLrlq9tT6CQpQoLfJyAtRuZQSVoi3cAHqMCQKXhn4ISE6pX8UUriKH2hJPVfDdsJqAVlonomj4Yd_tGJ-KvGjNkqzLBdRPdBerRXB-v0STcjfdQeQKFzud9oxDHhpEHsS2FNUnEsTmKo5qZumUz-QcPATmp7UucE6PwwoKYlttglP88r8Xf8KfBclmMBr_jqPmH54Y7L2eLuC-uP9mo9IUNcyTQtWT_rVtv8qJk' },
+            { name: 'Oversized Polo',   desc: 'Streetwear silhouette with elongated hem. The polo reimagined for fashion brands.',      price: '$28', img: IMG+'AB6AXuBoL3bPU2lONQJ8vitIGPZwLlTysmQZKkIDjgWyxLrlq9tT6CQpQoLfJyAtRuZQSVoi3cAHqMCQKXhn4ISE6pX8UUriKH2hJPVfDdsJqAVlonomj4Yd_tGJ-KvGjNkqzLBdRPdBerRXB-v0STcjfdQeQKFzud9oxDHhpEHsS2FNUnEsTmKo5qZumUz-QcPATmp7UucE6PwwoKYlttglP88r8Xf8KfBclmMBr_jqPmH54Y7L2eLuC-uP9mo9IUNcyTQtWT_rVtv8qJk' },
+          ]
+        }
+      };
+
+      window.openDrawer = function(key, event) {
+        if (event && event.target.closest('a')) return;
+        var data = DRAWER_DATA[key];
+        if (!data) return;
+        document.getElementById('drw-title-text').textContent = data.title;
+        document.getElementById('drw-title-text').style.color = data.accent;
+        document.getElementById('drw-count').textContent = data.items.length + ' styles available';
+        document.getElementById('drw-body').innerHTML = data.items.map(function(item) {
+          return '<div class="drw-item">' +
+            '<div class="drw-img"><img src="' + item.img + '" alt="' + item.name + '" loading="lazy"/></div>' +
+            '<div class="drw-info">' +
+              '<p class="drw-item-name">' + item.name + '</p>' +
+              '<p class="drw-item-desc">' + item.desc + '</p>' +
+              '<div class="drw-item-footer">' +
+                '<span class="drw-price" style="color:' + data.accent + '">' + item.price + '</span>' +
+                (item.name === 'Cotton T-Shirts'
+                  ? '<a href="cotton-tshirts.html" class="drw-btn" onclick="event.stopPropagation()"><span>Get a Quote →</span></a>'
+                  : '<a href="https://wa.me/19733896542?text=' + encodeURIComponent("Hi! I'd like a quote for: " + item.name + ' (' + data.title + ').') + '" target="_blank" rel="noopener" class="drw-btn" onclick="event.stopPropagation()"><span>Get a Quote →</span></a>'
+                ) +
+              '</div>' +
+            '</div>' +
+          '</div>';
+        }).join('');
+        document.getElementById('drawer-overlay').classList.add('active');
+        document.getElementById('product-drawer').classList.add('active');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.closeDrawer = function() {
+        document.getElementById('drawer-overlay').classList.remove('active');
+        document.getElementById('product-drawer').classList.remove('active');
+        document.body.style.overflow = '';
+      };
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') window.closeDrawer();
+      });
+
+    })();
+  </script>
+
+</body>
+</html>
