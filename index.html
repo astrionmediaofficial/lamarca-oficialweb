@@ -255,8 +255,7 @@
     }
 
     @media (max-width: 768px) {
-      .scroll-video-hero { height: 100svh; }
-      .scroll-video-sticky { position: relative; height: 100svh; }
+      .scroll-video-hero { height: 200vh; }
       .hero-scroll-hint { display: none; }
       .hero-tag { font-size: 0.65rem; padding: 0.4rem 0.9rem; margin-bottom: 1.25rem; }
       .hero-h1 { line-height: 0.95; margin-bottom: 1.25rem; }
@@ -1831,17 +1830,9 @@
       const imgEnd       = document.getElementById('heroImgEnd');
       if (!hero || !imgStart || !video || !imgEnd) return;
 
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      if (isMobile) {
-        imgStart.style.opacity = '1';
-        imgStart.style.objectPosition = 'center center';
-        video.style.opacity    = '0';
-        imgEnd.style.opacity   = '0';
-        return;
-      }
-
       // Estado inicial: solo imgStart visible
       imgStart.style.opacity = '1';
+      imgStart.style.objectPosition = 'center center';
       video.style.opacity    = '0';
       imgEnd.style.opacity   = '0';
 
@@ -1854,9 +1845,9 @@
       function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
       function norm(a, b, v)    { return clamp((v - a) / (b - a), 0, 1); }
 
-      // Lerp factor: how fast the display catches up to the scroll target.
-      // Lower = smoother/lazier (0.06 = ocean-wave feel). Range: 0.04–0.15.
-      const LERP = 0.06;
+      // Lerp factor: desktop = 0.06 (ocean-wave), mobile = 0.18 (snappy touch response)
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      const LERP = isMobile ? 0.18 : 0.06;
       let displayP = 0;
 
       function loop() {
