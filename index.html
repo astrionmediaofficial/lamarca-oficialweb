@@ -32,6 +32,9 @@
     /* ─── RESET ──────────────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+    /* Mac: hide native scrollbar to prevent sticky-scroll split artifact */
+    html.is-mac { scrollbar-width: none; }
+    html.is-mac::-webkit-scrollbar { display: none; }
     body {
       background: var(--bg);
       color: var(--white);
@@ -1854,9 +1857,14 @@
       function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
       function norm(a, b, v)    { return clamp((v - a) / (b - a), 0, 1); }
 
-      // Lerp factor: desktop = 0.06 (ocean-wave), mobile = 0.18 (snappy touch response)
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      const LERP = isMobile ? 0.18 : 0.06;
+      const isMac    = /macintosh|mac os x/i.test(navigator.userAgent);
+
+      // Hide scrollbar on Mac to prevent the sticky-scroll split artifact
+      if (isMac) document.documentElement.classList.add('is-mac');
+
+      // Lerp: mobile=0.18 (snappy touch), mac=0.13 (faster trackpad), win=0.06 (smooth mouse)
+      const LERP = isMobile ? 0.18 : isMac ? 0.13 : 0.06;
       let displayP = 0;
 
       function loop() {
