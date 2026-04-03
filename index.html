@@ -255,9 +255,13 @@
     }
 
     @media (max-width: 768px) {
-      .scroll-video-hero { height: 100vh; }
-      .scroll-video-sticky { position: relative; }
+      .scroll-video-hero { height: 100svh; }
+      .scroll-video-sticky { position: relative; height: 100svh; }
       .hero-scroll-hint { display: none; }
+      .hero-tag { font-size: 0.65rem; padding: 0.4rem 0.9rem; margin-bottom: 1.25rem; }
+      .hero-h1 { line-height: 0.95; margin-bottom: 1.25rem; }
+      .hero-sub { font-size: 0.95rem; margin-bottom: 2rem; }
+      .btn-primary, .btn-ghost { padding: 0.85rem 1.6rem; font-size: 0.8rem; }
     }
     /* prefers-reduced-motion no desactiva el hero scroll */
 
@@ -667,16 +671,41 @@
       #navbar { padding: 0 1.25rem; }
       .nav-links, .nav-cta { display: none; }
       .hamburger { display: flex; }
+
+      /* Products */
       .products-grid { grid-template-columns: 1fr; }
-      .product-card.featured { grid-template-columns: 1fr; }
+      .product-card.featured { grid-template-columns: 1fr; min-height: auto; }
+      .product-card.featured .card-image { aspect-ratio: 4/3; height: auto; }
       .product-card.solo { max-width: 100%; }
+
+      /* Steps */
       .steps-grid { grid-template-columns: 1fr; gap: 2px; }
       .step-arrow { display: none !important; }
+
+      /* Print standard */
+      #print-standard { padding: 4rem 1.25rem !important; }
+      .ps-stat-badge { position: static; margin-top: 1.5rem; display: inline-block; }
+      .ps-image-frame { border-right-width: 8px; border-bottom-width: 8px; }
+      .ps-image-wrap { max-width: 100%; }
+
+      /* Como funciona */
+      #como-funciona { padding: 4rem 1.25rem !important; }
+
+      /* Contact grid */
+      .contact-grid { grid-template-columns: 1fr !important; gap: 2rem !important; }
+
+      /* Footer */
       .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+
+      /* Chatbot */
+      #cb-win { width: min(340px, calc(100vw - 2rem)); right: 0; }
     }
     @media (max-width: 480px) {
       .footer-top { grid-template-columns: 1fr; }
       .hero-h1 { font-size: clamp(2.8rem, 11vw, 5rem); }
+      #cb { bottom: 16px; right: 16px; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-ghost { width: 100%; max-width: 280px; text-align: center; }
     }
 
     /* ─── PRINT STANDARD ────────────────────────────────────── */
@@ -1572,7 +1601,7 @@
     <section id="contacto" style="padding:4rem 2.5rem;">
       <div style="max-width:1400px; margin:0 auto;">
         <p class="section-label" style="margin-bottom:0.5rem;">Contact Us</p>
-        <div style="display:grid; grid-template-columns:1fr 1.4fr; gap:3rem; align-items:start; margin-top:1.5rem;">
+        <div class="contact-grid" style="display:grid; grid-template-columns:1fr 1.4fr; gap:3rem; align-items:start; margin-top:1.5rem;">
 
           <!-- Left: info + shipping + buttons -->
           <div style="display:flex; flex-direction:column; gap:1.5rem;">
@@ -1805,6 +1834,7 @@
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
       if (isMobile) {
         imgStart.style.opacity = '1';
+        imgStart.style.objectPosition = 'center center';
         video.style.opacity    = '0';
         imgEnd.style.opacity   = '0';
         return;
